@@ -1,0 +1,13 @@
+{
+  "package_versions": {
+    "MatchRulesPlusPlus": "4.1.6"
+  },
+  "release_zip": {
+    "bytes": 71076,
+    "name": "matchrules-plus-4.1.6.zip",
+    "sha256": "645e0a43180c85bdd316014db08539d159401ff7016261720859a08fb0c8ae82"
+  },
+  "repository": "monroth/WitchItPlus-MatchRulesPP",
+  "source_commit": "c58a810d239cafc115c82646d7f153ad5bf94076",
+  "updater_production_ready": false
+}
