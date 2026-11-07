@@ -6,7 +6,7 @@ return function(M)
         local s=C.session()
         if s.role~='host' or s.mode=='vanilla' then return end
         local own=D.clone(M.extras())
-        C.net.publish('mrpp.rules',{selected=M.authority(),document=M.capture(),extras=own})
+        C.net.publish('mrpp.rules',{selected=M.authority(),document=M.capture(),extras=own,live=s.gm.IsLiveRuleEditingAllowed==true})
     end
     C.net.watch('mrpp.rules',function(value)
         if C.session().role~='client' then return end
@@ -21,7 +21,7 @@ return function(M)
                 for _,row in ipairs(group.rows) do effective[row.name]=D.checked(source[row.name],row) end
                 doc.effective[key]=effective
             end
-            return {document=doc,extras=D.cleanOwnExtras(value.extras),selected=value.selected}
+            return {document=doc,extras=D.cleanOwnExtras(value.extras),selected=value.selected,live=value.live==true}
         end)
         if not ok then R.log(M.PKG,'%s',tostring(result));return end
         local old=M.hostView and R.json.encode(M.hostView.extras)

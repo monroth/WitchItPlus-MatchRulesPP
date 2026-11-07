@@ -102,9 +102,13 @@ return function(M)
         return {(U.checkbox(rows,{label='Keep match rules between launches',editable=true,value=settings.keepRules,
             on_change=function(value) settings.keepRules=value;M.persist() end}))}
     end)
-    -- Custom Match and the in-game menu have a native Match Rules + button (AdvancedOptions),
+    -- Custom Match and the host's in-game menu have a native Match Rules + button (AdvancedOptions),
     -- which opens this tab's screen. Only Creative's menu needs a row.
     local function open(origin) U.open_rules(origin,'Match Rules ++') end
-    U.menu_entry('/Game/UserInterface/CreativeMode/WB_CreativeIngameMenu.WB_CreativeIngameMenu_C','Settings','Match Rules ++',open,'LayoutEditor')
+    U.menu_entry('/Game/UserInterface/CreativeMode/WB_CreativeIngameMenu.WB_CreativeIngameMenu_C','Settings','Match Rules +',open,'LayoutEditor')
+    -- The game shows its button to the host of a Tweakable match only; a guest of such a match
+    -- reaches the rules from its own row. The flag lives on the server, so the host publishes it.
+    U.menu_entry('/Game/UserInterface/WB_IngameMenu.WB_IngameMenu_C','Settings','Match Rules +',open,nil,
+        function() return guest() and M.hostView~=nil and M.hostView.live end)
     R.key('mrpp.rules','F7',function() U.open_rules(nil,'Match Rules ++') end)
 end
